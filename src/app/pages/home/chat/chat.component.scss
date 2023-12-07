@@ -1,0 +1,46 @@
+.container{
+  height: 100%;
+}
+
+.form-switch {
+  width: 200px;
+  input {
+    height: 30px;
+    width: 70px;
+    margin-left: 0;
+  }
+}
+
+.chat {
+  height: 25em;
+  max-height: 25em;
+  overflow-y: auto;
+  border: 2px solid lightgray;
+}
+
+.client {
+  color: green;
+}
+
+.assistant {
+  color: blue;
+}
+
+.employee {
+  color: red;
+}
+
+.input-chat {
+  padding-left: 0;
+  padding-right: 0;
+  button {
+    height: 40px;
+  }
+  textarea {
+    resize: none;
+    overflow-y: auto;
+    height: 40px;
+    max-height: 100px;
+    width: 85%;
+  }
+}

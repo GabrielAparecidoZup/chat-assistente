@@ -1,0 +1,16 @@
+<div class="card p-2 d-flex flex-column align-items-start" *ngIf="chat">
+  <div class="title-name d-flex justify-content-between align-items-center">
+    <div class="name">{{ chat.name }}</div>
+    <div
+      class="assistant"
+      [style.background]="chat.assistant ? 'green' : 'red'"
+    ></div>
+  </div>
+
+  <div class="last-message">
+    {{ chat.name.split(" ")[0] }}: {{ chat.lastMessage }}
+  </div>
+  <p class="align-self-end mt-auto">
+    Visto por último: {{ chat.lastView }} min
+  </p>
+</div>

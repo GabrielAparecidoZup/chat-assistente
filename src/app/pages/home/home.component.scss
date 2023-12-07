@@ -1,0 +1,15 @@
+.container {
+  padding: 1em 2em;
+}
+
+.scroll {
+  max-height: 100em;
+  overflow-y: auto;
+  height: 82dvh;
+  border: 2px solid lightgray;
+  border-right: none;
+}
+
+.chat {
+  border: 2px solid lightgray;
+}

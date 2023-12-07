@@ -1,0 +1,69 @@
+<ng-container *ngIf="chat">
+  <div class="p-2 row container">
+    <div class="col-12 d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Conversa com {{ chat.clientName.split(" ")[0] }}</h4>
+      <div class="form-switch d-flex flex-column align-items-center">
+        <label class="form-check-label" for="flexSwitchCheckDefault"
+          >Assistente {{ chat.assistant ? "Ligada" : "Desligada" }}</label
+        >
+        <input
+          [(ngModel)]="chat.assistant"
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+        />
+      </div>
+    </div>
+    <div class="col-12 mt-2 chat px-3" id="chat">
+      <ng-container *ngFor="let message of chat.conversation; let i = index">
+        <div
+          class="d-flex flex-column"
+          [ngClass]="{
+            'text-end': message.idClient === myId,
+            'mb-3': chat.conversation[i + 1]?.idClient != message.idClient
+          }"
+        >
+          <div
+            [ngClass]="{
+              client: message.type === 'client',
+              assistant: message.type === 'assistant',
+              employee: message.type === 'employee'
+            }"
+            *ngIf="chat.conversation[i - 1]?.idClient != message.idClient"
+          >
+            {{ message.name }}
+          </div>
+          <div>
+            {{ message.message }}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="col-12 input-chat d-flex justify-content-between">
+      <textarea
+        #inputMsg
+        class="form-control"
+        id="send-msg"
+        placeholder="Digite aqui..."
+        type="text"
+        (input)="autoResize()"
+      ></textarea>
+      <button
+        type="button"
+        class="btn btn-primary align-self-start"
+        (click)="sendMsg(inputMsg)"
+      >
+        Enviar
+      </button>
+    </div>
+  </div>
+</ng-container>
+
+<button type="button" class="btn btn-primary mt-2" (click)="addClientMsg()">
+  CLIENTE
+</button>
+<button type="button" class="btn btn-primary mt-2" (click)="addBotMsg()">
+  ASSISTENTE
+</button>

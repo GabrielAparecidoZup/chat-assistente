@@ -1,0 +1,34 @@
+.card {
+  border: 2px solid lightgray;
+  height: 92px;
+  position: relative;
+  cursor: pointer;
+}
+
+.title-name {
+  width: 100%;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.assistant {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.last-message {
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

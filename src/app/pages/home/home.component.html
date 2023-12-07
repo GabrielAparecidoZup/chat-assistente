@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h1>Operações atuais</h1>
+    </div>
+    <div class="col-4 scroll chats pt-2">
+      <ng-container *ngFor="let chat of chats">
+        <div class="mb-2" (click)="chatId = chat.id">
+          <app-card [chat]="chat"></app-card>
+        </div>
+      </ng-container>
+    </div>
+    <div class="col-8 chat">
+      <app-chat [chatId]="chatId"></app-chat>
+    </div>
+    <div class="col-12">footer</div>
+  </div>
+</div>
