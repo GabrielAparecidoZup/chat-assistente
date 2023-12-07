@@ -37,7 +37,6 @@ export class ChatComponent implements OnChanges, OnDestroy {
         next: (res: any) => {
           this.chat = res;
           this.scrollEndChat();
-          console.log(this.chat);
         },
         error: (e: unknown) => {
           console.log(e);

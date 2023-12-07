@@ -49,11 +49,13 @@
         placeholder="Digite aqui..."
         type="text"
         (input)="autoResize()"
+        [disabled]="chat.assistant"
       ></textarea>
       <button
         type="button"
         class="btn btn-primary align-self-start"
         (click)="sendMsg(inputMsg)"
+        [disabled]="chat.assistant"
       >
         Enviar
       </button>

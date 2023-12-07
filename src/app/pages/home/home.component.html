@@ -4,6 +4,13 @@
       <h1>Operações atuais</h1>
     </div>
     <div class="col-4 scroll chats pt-2">
+      <input
+        class="form-control mb-2"
+        id="send-msg"
+        placeholder="Digite aqui..."
+        type="text"
+        (input)="filter($event)"
+      />
       <ng-container *ngFor="let chat of chats">
         <div class="mb-2" (click)="chatId = chat.id">
           <app-card [chat]="chat"></app-card>

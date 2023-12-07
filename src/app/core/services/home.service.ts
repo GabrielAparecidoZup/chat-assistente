@@ -15,6 +15,6 @@ export class HomeService {
   }
 
   getChatById(id: number): Observable<any> {
-    return this.http.get(`http://localhost:3002/api/chats/1`);
+    return this.http.get(`http://localhost:3002/api/chats/${id}`);
   }
 }
