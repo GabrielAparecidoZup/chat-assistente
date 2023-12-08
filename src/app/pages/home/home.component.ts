@@ -97,8 +97,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.homeService.getAllThreads().subscribe({
         next: (value: any) => {
-          let temp: any = [];
           this.chats.forEach((cliente: any) => {
+            let temp: any = [];
             const threadArray = value.Items.filter(
               (execucao: any) => execucao.telefone === cliente.telefone
             )
@@ -106,6 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 return {
                   created_at: temp.created_at,
                   thread_id: temp.thread_id,
+                  telefone: temp.telefone,
                 };
               })
               .sort((a: any, b: any) => {
