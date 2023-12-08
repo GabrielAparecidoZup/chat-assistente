@@ -21,6 +21,10 @@ export class HomeService {
     return this.http.get(`${this.apiBase}/clientes`);
   }
 
+  getAllThreads(): Observable<any> {
+    return this.http.get(`${this.apiBase}/execucao`);
+  }
+
   getParametro(): Observable<any> {
     return this.http.get(`${this.apiBase}/parametro`);
   }
