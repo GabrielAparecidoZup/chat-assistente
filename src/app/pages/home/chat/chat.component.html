@@ -1,9 +1,9 @@
-<ng-container *ngIf="chat.mensagens.length > 0">
+<ng-container *ngIf="chat">
   <div class="p-2 row container">
     <div class="col-12 d-flex justify-content-between align-items-center">
       <h4 class="mb-0">
         Conversa com
-        <!-- {{ chat.clientName.split(" ")[0] }}-->
+        {{ chat.nome.split(" ")[0] }}
       </h4>
       <div class="form-switch d-flex flex-column align-items-center">
         <label class="form-check-label" for="flexSwitchCheckDefault"
@@ -25,7 +25,7 @@
         <div
           class="d-flex flex-column"
           [ngClass]="{
-            'mb-3': chat.mensagens[i + 1]?.role != mensagem.role
+            'mb-3': chat.mensagens[i + 1]?.role != mensagem?.role
           }"
         >
           <div

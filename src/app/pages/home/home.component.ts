@@ -68,20 +68,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.homeService.getClientes().subscribe({
         next: (value: any) => {
-
           this.chats.forEach((chat: any) => {
             const cliente = value.Items.find(
               (item: any) => item.telefone === chat.telefone
             );
             chat.nome = cliente?.nome;
-            chat.toggle = cliente?.modo_assistente;
+            chat.toggle = cliente.modo_assistente;
           });
           this.chatsOriginal = [...this.chats];
           this.chats = this.chatsOriginal.filter(
             (chat: any) => chat.status.toUpperCase() != 'ARQUIVADO'
           );
           this.chatSelecionado = this.chats[0];
-
           this.pronto = true;
         },
       })
