@@ -7,5 +7,5 @@ import { IChatPreview } from 'src/app/shared/models/chat.model';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
-  @Input() chat!: IChatPreview;
+  @Input() chat!: any;
 }

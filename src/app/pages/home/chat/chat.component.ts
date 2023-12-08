@@ -3,6 +3,7 @@ import {
   Input,
   OnChanges,
   OnDestroy,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -14,35 +15,20 @@ import { IChat } from 'src/app/shared/models/chat.model';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnChanges, OnDestroy {
-  @Input() chatId!: number;
+export class ChatComponent implements OnDestroy, OnChanges {
+  @Input() chat: any;
 
   myId: number = 354;
-  chat!: IChat;
   private subs = new Subscription();
 
   constructor(private homeService: HomeService) {}
 
-  ngOnChanges(): void {
-    if (this.chatId) this.getChat();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['chat']['currentValue']) this.scrollEndChat();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
-  }
-
-  private getChat() {
-    this.subs.add(
-      this.homeService.getChatById(this.chatId).subscribe({
-        next: (res: any) => {
-          this.chat = res;
-          this.scrollEndChat();
-        },
-        error: (e: unknown) => {
-          console.log(e);
-        },
-      })
-    );
   }
 
   private scrollEndChat(timer: number = 250) {
@@ -73,6 +59,16 @@ export class ChatComponent implements OnChanges, OnDestroy {
     this.scrollEndChat();
     const sendMsg = document.getElementById('send-msg') as HTMLTextAreaElement;
     sendMsg.style.height = '40px';
+  }
+
+  public mudarAssistente() {
+    this.chat.toggle = !this.chat.toggle;
+    this.homeService
+      .atualizaModoAssistente(this.chat.telefone, {
+        telefone: this.chat.telefone,
+        modo_assistente: this.chat.toggle,
+      })
+      .subscribe();
   }
 
   public addClientMsg() {
