@@ -63,6 +63,8 @@ export class ChatComponent implements OnDestroy, OnChanges {
   }
 
   public mudarAssistente() {
+    this.chat.toggle = !this.chat.toggle;
+
     this.homeService
       .atualizaModoAssistente(this.chat.telefone, {
         telefone: this.chat.telefone,
