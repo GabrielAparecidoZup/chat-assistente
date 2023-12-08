@@ -130,7 +130,9 @@ export class HomeComponent implements OnInit, OnDestroy {
                 },
               });
           });
+          this.chatsOriginal = [...this.chats];
           this.chatSelecionado = this.chats[0];
+
           this.pronto = true;
         },
       })

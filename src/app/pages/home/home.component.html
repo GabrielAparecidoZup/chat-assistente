@@ -13,7 +13,11 @@
         (input)="filter($event)"
       />
       <ng-container *ngFor="let chat of chats">
-        <div class="mb-2" (click)="chatSelecionado = chat">
+        <div
+          class="mb-2"
+          (click)="chatSelecionado = chat"
+          *ngIf="chat.mensagens.length > 0"
+        >
           <app-card [chat]="chat"></app-card>
         </div>
       </ng-container>
