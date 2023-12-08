@@ -68,7 +68,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.homeService.getClientes().subscribe({
         next: (value: any) => {
-          console.log(value);
 
           this.chats.forEach((chat: any) => {
             const cliente = value.Items.find(
@@ -77,6 +76,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             chat.nome = cliente?.nome;
             chat.toggle = cliente?.modo_assistente;
           });
+          this.chatsOriginal = [...this.chats];
+          this.chats = this.chatsOriginal.filter(
+            (chat: any) => chat.status.toUpperCase() != 'ARQUIVADO'
+          );
           this.chatSelecionado = this.chats[0];
 
           this.pronto = true;
@@ -99,8 +102,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (event.target.value.length === 0) {
       this.chats = this.chatsOriginal;
     }
-    this.chats = this.chatsOriginal.filter((chat: IChatPreview) =>
-      chat.name.includes(event.target.value)
+    this.chats = this.chatsOriginal.filter((chat: any) =>
+      chat.nome.toUpperCase().includes(event.target.value.toUpperCase())
     );
   }
 }

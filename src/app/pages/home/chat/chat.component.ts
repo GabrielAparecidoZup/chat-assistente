@@ -24,7 +24,8 @@ export class ChatComponent implements OnDestroy, OnChanges {
   constructor(private homeService: HomeService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['chat']['currentValue']) this.scrollEndChat();
+    if (changes['chat']['currentValue'] && this.chat.mensagens.length > 0)
+      this.scrollEndChat();
   }
 
   ngOnDestroy(): void {
@@ -62,7 +63,6 @@ export class ChatComponent implements OnDestroy, OnChanges {
   }
 
   public mudarAssistente() {
-    this.chat.toggle = !this.chat.toggle;
     this.homeService
       .atualizaModoAssistente(this.chat.telefone, {
         telefone: this.chat.telefone,

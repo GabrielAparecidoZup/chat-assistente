@@ -1,4 +1,4 @@
-<ng-container *ngIf="chat">
+<ng-container *ngIf="chat.mensagens.length > 0">
   <div class="p-2 row container">
     <div class="col-12 d-flex justify-content-between align-items-center">
       <h4 class="mb-0">
@@ -15,29 +15,30 @@
           type="checkbox"
           role="switch"
           id="flexSwitchCheckDefault"
+          [(ngModel)]="chat.toggle"
         />
       </div>
     </div>
 
     <div class="col-12 mt-2 chat px-3" id="chat">
-      <ng-container *ngFor="let message of chat.mensagens; let i = index">
+      <ng-container *ngFor="let mensagem of chat.mensagens; let i = index">
         <div
           class="d-flex flex-column"
           [ngClass]="{
-            'mb-3': chat.mensagens[i + 1]?.role != message.role
+            'mb-3': chat.mensagens[i + 1]?.role != mensagem.role
           }"
         >
           <div
             [ngClass]="{
-              client: message.role === 'user',
-              assistant: message.role === 'assistant',
-              employee: message.role === 'employee'
+              client: mensagem.role === 'user',
+              assistant: mensagem.role === 'assistant',
+              employee: mensagem.role === 'employee'
             }"
           >
-            {{ message.role === "assistant" ? "Assistente" : chat.nome }}
+            {{ mensagem.role === "assistant" ? "Assistente" : chat.nome }}
           </div>
           <div>
-            {{ message.content[0].text.value }}
+            {{ mensagem.content[0].text.value }}
           </div>
         </div>
       </ng-container>
