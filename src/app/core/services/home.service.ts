@@ -9,7 +9,7 @@ import { Observable, of } from 'rxjs';
 })
 export class HomeService {
   private apiBase =
-    'http://ec2-54-86-60-242.compute-1.amazonaws.com:8080/bff/v1';
+    'http://ec2-44-203-190-75.compute-1.amazonaws.com:8080/bff/v1';
 
   constructor(private http: HttpClient) {}
 
