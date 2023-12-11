@@ -24,15 +24,15 @@ export class ChatComponent implements OnDestroy, OnChanges {
   constructor(private homeService: HomeService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['chat']['currentValue'] && this.chat.mensagens.length > 0)
-      this.scrollEndChat();
+    if (changes['chat'] && this.chat.mensagens.length > 0) this.scrollEndChat();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  private scrollEndChat(timer: number = 250) {
+  private scrollEndChat(timer: number = 1000) {
+
     setTimeout(() => {
       const chat = document.getElementById('chat') as HTMLDivElement;
       chat.scrollTo({

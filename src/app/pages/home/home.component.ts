@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HomeService } from 'src/app/core/services/home.service';
 import { Subscription, forkJoin } from 'rxjs';
 import { IChatPreview } from 'src/app/shared/models/chat.model';
+import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-home',
@@ -21,47 +22,55 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getClientes();
     this.getParametro();
+    this.createSocket();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
-  private getChats() {
-    this.subs.add(
-      this.homeService.getChats().subscribe({
-        next: (res: any) => {
-          let temp: any = [];
-          this.chats = res.Items.map((item: any) => {
-            temp.push(this.homeService.getChatById(item.id));
-            return {
-              id: item.id,
-              telefone: item.telefone,
-              mensagens: [],
-              nome: '',
-              toggle: false,
-              status: item.status,
-            };
-          });
+  private createSocket() {
+    const socket = io('http://ec2-44-203-190-75.compute-1.amazonaws.com:8081/');
 
-          forkJoin(temp).subscribe({
-            next: (value: any) => {
-              let temp = this.chats.map((chat: any, index: number) => {
-                return {
-                  ...chat,
-                  mensagens: [...value[index].data.reverse()],
-                };
-              });
-              this.chats = temp;
-              this.getClientes();
-            },
-          });
-        },
-        error: (err: unknown) => {
-          console.log(err);
-        },
-      })
+    socket.on('mensagem_criada', (value: any) => {
+      this.updateChat(value.data);
+    });
+  }
+
+  private updateChat(value: any) {
+    const index = this.chats.findIndex(
+      (chat: any) => chat.telefone === value.telefone
     );
+    if (index != -1) {
+      this.chats[index].mensagens.push({
+        role: value.role,
+        content: [
+          {
+            text: {
+              value: value.conteudo,
+            },
+          },
+        ],
+      });
+    } else {
+      this.chats.push({
+        nome: value.nome,
+        toggle: true,
+        telefone: value.telefone,
+        mensagens: [
+          {
+            content: [
+              {
+                text: {
+                  value: value.conteudo,
+                },
+              },
+            ],
+            role: 'user',
+          },
+        ],
+      });
+    }
   }
 
   private getClientes() {

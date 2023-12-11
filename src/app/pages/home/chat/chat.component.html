@@ -34,6 +34,7 @@
               assistant: mensagem.role === 'assistant',
               employee: mensagem.role === 'employee'
             }"
+            *ngIf="mensagem.role != chat.mensagens[i - 1]?.role"
           >
             {{ mensagem.role === "assistant" ? "Assistente" : chat.nome }}
           </div>
